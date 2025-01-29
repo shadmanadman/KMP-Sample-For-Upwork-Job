@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 
 val jsonData :String= """
 {
-  "image_url": "https://yavuzceliker.github.io/sample-images/image-n.jpg",
+  "image_url": "https://images.pexels.com/photos/2100063/pexels-photo-2100063.jpeg",
   "text": "This is simple kmp task for an upwork job."
 }
 """

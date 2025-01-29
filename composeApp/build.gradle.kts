@@ -56,20 +56,46 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("io.ktor:ktor-client-android:2.3.4")
         }
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.runtime.compose)
 
-            implementation(libs.kotlinx.serialization.json)
+                implementation(libs.kotlinx.serialization.json)
 
-            implementation(libs.kamel.image)
+                api(libs.kamel.image)
+
+                api("io.ktor:ktor-client-core:2.3.4")
+                api("io.ktor:ktor-client-content-negotiation:2.3.4")
+            }
+        }
+
+        val wasmJsMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-js:2.3.4")
+            }
+        }
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependencies {
+                // Ktor Darwin
+                implementation("io.ktor:ktor-client-darwin:2.3.4")
+            }
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
         }
     }
 }
